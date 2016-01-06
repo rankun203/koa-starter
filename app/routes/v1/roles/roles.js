@@ -49,9 +49,11 @@ function buildRoles(roles) {
   var userRoles = {};
 
   for (var role in roles) {
-    var intCode            = parseInt(bitMask, 2);
+    var intCode = parseInt(bitMask, 2);
+    //noinspection JSUnfilteredForInLoop
     userRoles[roles[role]] = {
       bitMask: intCode,
+      //noinspection JSUnfilteredForInLoop
       title  : roles[role]
     };
     bitMask                = (intCode << 1).toString(2);
@@ -71,7 +73,9 @@ function buildAccessLevels(accessLevelDeclarations, userRoles) {
       role;
   for (var level in accessLevelDeclarations) {
 
+    //noinspection JSUnfilteredForInLoop
     if (typeof accessLevelDeclarations[level] === 'string') {
+      //noinspection JSUnfilteredForInLoop
       if (accessLevelDeclarations[level] === '*') {
 
         resultBitMask = '';
@@ -80,28 +84,36 @@ function buildAccessLevels(accessLevelDeclarations, userRoles) {
           resultBitMask += "1";
         }
         //accessLevels[level] = parseInt(resultBitMask, 2);
+        //noinspection JSUnfilteredForInLoop
         accessLevels[level] = {
           bitMask: parseInt(resultBitMask, 2),
           title  : accessLevelDeclarations[level]
         };
       }
       else {
+        //noinspection JSUnfilteredForInLoop
         console.log("Access Control Error: Could not parse '" + accessLevelDeclarations[level] + "' as access definition for level '" + level + "'");
       }
     }
     else {
 
       resultBitMask = 0;
+      //noinspection JSUnfilteredForInLoop
       for (role in accessLevelDeclarations[level]) {
+        //noinspection JSUnfilteredForInLoop
         if (userRoles.hasOwnProperty(accessLevelDeclarations[level][role])) {
+          //noinspection JSUnfilteredForInLoop
           resultBitMask = resultBitMask | userRoles[accessLevelDeclarations[level][role]].bitMask;
         }
         else {
+          //noinspection JSUnfilteredForInLoop
           console.log("Access Control Error: Could not find role '" + accessLevelDeclarations[level][role] + "' in registered roles while building access for '" + level + "'");
         }
       }
+      //noinspection JSUnfilteredForInLoop
       accessLevels[level] = {
         bitMask: resultBitMask,
+        //noinspection JSUnfilteredForInLoop
         title  : accessLevelDeclarations[level][role]
       };
     }
