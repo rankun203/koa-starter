@@ -1,50 +1,31 @@
-const Koa = require('koa');
-const app = new Koa();
-const router = require('koa-router')();
-const views = require('koa-views');
-const co = require('co');
-const convert = require('koa-convert');
-const json = require('koa-json');
-const onerror = require('koa-onerror');
-const bodyparser = require('koa-bodyparser')();
-const logger = require('koa-logger');
+#!/usr/bin/env node
 
-const index = require('./routes/index');
-const users = require('./routes/users');
+const Koa        = require('koa'),
+      app        = new Koa(),
+      views      = require('koa-views'),
+      co         = require('co'),
+      json       = require('koa-json'),
+      onerror    = require('koa-onerror'),
+      bodyparser = require('koa-bodyparser')();
 
-// middlewares
-app.use(convert(bodyparser));
-app.use(convert(json()));
-app.use(convert(logger()));
-app.use(convert(require('koa-static')(__dirname + '/public')));
+const config     = require('./platform/config'),
+      db         = require('./platform/db'),
+      middleware = require('./middlewares'),
+      services   = require('./services');
 
-app.use(convert(views('views', {
-  root: __dirname + '/views',
-  default: 'jade'
-})));
+app.use(middleware.favicon());
+app.use(middleware.logger());
+app.use(middleware.responseTime());
+app.use(middleware.compress());
 
-app.use(co.wrap(function* (ctx, next) {
-  ctx.render = co.wrap(ctx.render);
-  yield next();
-}));
+app.use(middleware.mount('/v1', services.v1));
 
-// logger
-
-app.use(co.wrap(function* (ctx, next) {
-  const start = new Date();
-  yield next();
-  const ms = new Date() - start;
-  console.log(`${ ctx.method } ${ ctx.url } - ${ ms }ms`);
-}));
-
-router.use('/', index.routes(), index.allowedMethods());
-router.use('/users', users.routes(), users.allowedMethods());
-
-app.use(router.routes(), router.allowedMethods());
-// response
-
-app.on('error', function (err, ctx) {
-  log.error('server error', err, ctx);
+co(function *() {
+  var connection = yield db.sequelize.client.sync();
+  if (connection) {
+    app.listen(config.server.port);
+    console.log(`Connected to database and listening on port ${config.server.port}`);
+  }
 });
 
 module.exports = app;
