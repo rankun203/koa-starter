@@ -13,7 +13,7 @@ const Koa          = require('koa'),
 
 const db           = require('./platform/db'),
       config       = require('./platform/config'),
-      services     = require('./services'),
+      routes       = require('./routes'),
       httpStatus   = require('./middlewares/http-status'),
       httpNotFound = require('./middlewares/404');
 
@@ -25,11 +25,12 @@ app.use(cors());
 
 app.use(httpStatus);
 
-app.use(mount('/v1', services.v1));
+app.use(mount('/v1', routes.v1));
 
 app.use(httpNotFound);
 
 co(function *() {
+  // Dev Only, 将代码中的 Schema 同步到数据库
   const connection = yield db.sequelize.client.sync();
   if (connection) {
     app.listen(config.server.port);

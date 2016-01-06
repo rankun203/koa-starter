@@ -5,6 +5,7 @@
 
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define('User', {
+    role         : DataTypes.STRING,
     phone        : DataTypes.STRING,
     password     : DataTypes.STRING,
     avatarUrl    : DataTypes.STRING,
