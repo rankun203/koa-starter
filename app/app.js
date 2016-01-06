@@ -3,6 +3,7 @@
 const Koa     = require('koa'),
       app     = new Koa(),
       co      = require('co'),
+      cors    = require('koa-cors'),
       onerror = require('koa-onerror');
 
 const config     = require('./platform/config'),
@@ -15,6 +16,7 @@ app.use(middleware.logger());
 app.use(middleware.responseTime());
 app.use(middleware.compress());
 app.use(middleware.httpStatus);
+app.use(cors());
 
 app.use(middleware.mount('/v1', services.v1));
 
