@@ -3,12 +3,13 @@
  * @author rankun203
  */
 
+const platform = require('../../../platform');
 /**
  * Directly from fnakstad
  * https://github.com/fnakstad/angular-client-side-auth/blob/master/client/js/routingConfig.js
  */
 
-var config = {
+const config   = {
 
   /* List all the roles you wish to use in the app
    * You have a max of 31 before the bit shift pushes the accompanying integer out of
@@ -110,7 +111,14 @@ function buildAccessLevels(accessLevelDeclarations, userRoles) {
 }
 
 function* check() {
+  const url = this.req.url;
+  // TODO 2016-01-07 03:28:30 jwt 认证, 才能获取到 uid
+  const uid = this.req.uid;
 
+  const user = yield platform.users.getUser(uid);
+  // TODO 2016-01-07 03:28:26 权限计算, 参考简账前端 loginService
+  // TODO 2016-01-07 03:28:23 注册用户会自动分配 user role
+  // TODO 2016-01-07 03:28:48 网站功能要有给用户设置权限的能力
 }
 
 module.exports.check        = check;

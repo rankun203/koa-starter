@@ -4,10 +4,8 @@
  */
 
 const parse    = require('co-body'),
-      roles    = require('./roles'),
+      rac      = require('./roles').check,
       platform = require('../../platform');
-
-const al = roles.accessLevels;
 
 const get = exports.get = function* (next) {
   const id   = this.params.id,
@@ -28,7 +26,7 @@ const create = exports.create = function* (next) {
 };
 
 module.exports.register = function (router) {
-  router.get('/users', al.user, list);
-  router.get('/users/:id', al.user, get);
-  router.post('/users', al.user, create);
+  router.get('/users', rac, list);
+  router.get('/users/:id', rac, get);
+  router.post('/users', rac, create);
 };
