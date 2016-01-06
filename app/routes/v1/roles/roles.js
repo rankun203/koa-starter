@@ -116,7 +116,7 @@ function* check() {
   const uid = this.req.uid;
 
   const user = yield platform.users.getUser(uid);
-  // TODO 2016-01-07 03:28:26 权限计算, 参考简账前端 loginService
+  // TODO 2016-01-07 03:28:26 权限计算, 参考简账前端 loginService#resolvePendingState
   // TODO 2016-01-07 03:28:23 注册用户会自动分配 user role
   // TODO 2016-01-07 03:28:48 网站功能要有给用户设置权限的能力
 }
