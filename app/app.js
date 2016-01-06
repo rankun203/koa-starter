@@ -11,12 +11,16 @@ const config     = require('./platform/config'),
       middleware = require('./middlewares'),
       services   = require('./services');
 
-app.use(middleware.favicon());
-app.use(middleware.logger());
-app.use(middleware.responseTime());
-app.use(middleware.compress());
-app.use(middleware.httpStatus);
-app.use(cors());
+const all = compose([
+  middleware.favicon,
+  middleware.logger,
+  middleware.responseTime,
+  middleware.compress,
+  middleware.httpStatus,
+  cors()
+]);
+
+app.use(all);
 
 app.use(middleware.mount('/v1', services.v1));
 
