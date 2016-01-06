@@ -3,8 +3,11 @@
  * @author rankun203
  */
 
-const platform = require('../../platform'),
-      parse    = require('co-body');
+const parse    = require('co-body'),
+      roles    = require('./roles'),
+      platform = require('../../platform');
+
+const al = roles.accessLevels;
 
 const get = exports.get = function* (next) {
   const id   = this.params.id,
@@ -25,7 +28,7 @@ const create = exports.create = function* (next) {
 };
 
 module.exports.register = function (router) {
-  router.get('/users', list);
-  router.get('/users/:id', get);
-  router.post('/users', create);
+  router.get('/users', al.user, list);
+  router.get('/users/:id', al.user, get);
+  router.post('/users', al.user, create);
 };
