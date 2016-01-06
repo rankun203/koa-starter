@@ -13,8 +13,6 @@ module.exports = function (sequelize, DataTypes) {
     birthday     : DataTypes.DATE,
     lastLoginTime: DataTypes.DATE,
     lastLoginIp  : DataTypes.STRING,
-    creationTime : DataTypes.DATE,
-    updateTime   : DataTypes.DATE,
     status       : DataTypes.INTEGER
   }, {
     associate: function (models) {

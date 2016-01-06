@@ -3,7 +3,7 @@
  * @author rankun203
  */
 
-var userPersistence = require('./usersPersistence');
+var userPersistence = require('./users-persistence');
 
 module.exports.getUser = function* (id) {
   if (!id) throw new Error('id cannot be null');

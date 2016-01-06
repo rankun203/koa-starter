@@ -3,9 +3,9 @@
  * @author rankun203
  */
 
-var db    = require('../db');
-var User  = db.sequelize['User'];
-var debug = require('debug')('userPersistence');
+const db    = require('../db'),
+      User  = db.sequelize['User'],
+      debug = require('debug')('user-persistence');
 
 module.exports.getUser = function* (id) {
   debug(`getting user ${id}`);
@@ -14,7 +14,7 @@ module.exports.getUser = function* (id) {
   const cachedUser = yield db.redis.get(`/users/${id}`);
   if (cachedUser) return JSON.parse(cachedUser);
 
-  const user = yield User.find(id);
+  const user = yield User.findById(id);
   if (user) yield db.redis.set(`/users/${id}`, JSON.stringify(user));
 
   return user;

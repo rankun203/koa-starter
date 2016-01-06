@@ -3,4 +3,4 @@
  * @author rankun203
  */
 
-module.exports = require('./usersProvider');
+module.exports = require('./users-provider');

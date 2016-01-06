@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 
-const Koa        = require('koa'),
-      app        = new Koa(),
-      views      = require('koa-views'),
-      co         = require('co'),
-      json       = require('koa-json'),
-      onerror    = require('koa-onerror'),
-      bodyparser = require('koa-bodyparser')();
+const Koa     = require('koa'),
+      app     = new Koa(),
+      co      = require('co'),
+      onerror = require('koa-onerror');
 
 const config     = require('./platform/config'),
       db         = require('./platform/db'),
@@ -17,8 +14,11 @@ app.use(middleware.favicon());
 app.use(middleware.logger());
 app.use(middleware.responseTime());
 app.use(middleware.compress());
+app.use(middleware.httpStatus);
 
 app.use(middleware.mount('/v1', services.v1));
+
+app.use(middleware.httpNotFound);
 
 co(function *() {
   var connection = yield db.sequelize.client.sync();

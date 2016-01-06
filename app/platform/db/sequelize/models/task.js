@@ -7,8 +7,6 @@ module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Task', {
     name        : DataTypes.STRING,
     taskStatus  : DataTypes.INTEGER,
-    creationTime: DataTypes.DATE,
-    updateTime  : DataTypes.DATE,
     status      : DataTypes.INTEGER
   });
 };

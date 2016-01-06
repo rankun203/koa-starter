@@ -16,7 +16,8 @@ const get = exports.get = function* (next) {
 
 const list = exports.list = function* (next) {
   const where = this.params;
-  this.body   = yield platform.users.getUserList(where);
+  throw new Error('hehe');
+  this.body = yield platform.users.getUserList(where);
 };
 
 const create = exports.create = function* (next) {
