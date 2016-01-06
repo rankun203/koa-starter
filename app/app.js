@@ -1,33 +1,36 @@
 #!/usr/bin/env node
 
-const Koa     = require('koa'),
-      app     = new Koa(),
-      co      = require('co'),
-      cors    = require('koa-cors'),
-      onerror = require('koa-onerror');
+const Koa          = require('koa'),
+      app          = new Koa(),
+      co           = require('co'),
+      cors         = require('koa-cors'),
+      mount        = require('koa-mount'),
+      logger       = require('koa-logger'),
+      onerror      = require('koa-onerror'),
+      favicon      = require('koa-favicon'),
+      compress     = require('koa-compress'),
+      responseTime = require('koa-response-time');
 
-const config     = require('./platform/config'),
-      db         = require('./platform/db'),
-      middleware = require('./middlewares'),
-      services   = require('./services');
+const db           = require('./platform/db'),
+      config       = require('./platform/config'),
+      services     = require('./services'),
+      httpStatus   = require('./middlewares/http-status'),
+      httpNotFound = require('./middlewares/404');
 
-const all = compose([
-  middleware.favicon,
-  middleware.logger,
-  middleware.responseTime,
-  middleware.compress,
-  middleware.httpStatus,
-  cors()
-]);
+app.use(favicon());
+app.use(logger());
+app.use(responseTime());
+app.use(compress());
+app.use(cors());
 
-app.use(all);
+app.use(httpStatus);
 
-app.use(middleware.mount('/v1', services.v1));
+app.use(mount('/v1', services.v1));
 
-app.use(middleware.httpNotFound);
+app.use(httpNotFound);
 
 co(function *() {
-  var connection = yield db.sequelize.client.sync();
+  const connection = yield db.sequelize.client.sync();
   if (connection) {
     app.listen(config.server.port);
     console.log(`Connected to database and listening on port ${config.server.port}`);
