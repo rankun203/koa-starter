@@ -3,21 +3,29 @@
  * @author rankun203
  */
 
+const _ = require('lodash');
+
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define('User', {
-    role         : DataTypes.STRING,
-    phone        : DataTypes.STRING,
-    password     : DataTypes.STRING,
-    avatarUrl    : DataTypes.STRING,
-    name         : DataTypes.STRING,
-    gender       : DataTypes.INTEGER,
-    birthday     : DataTypes.DATE,
-    lastLoginTime: DataTypes.DATE,
-    lastLoginIp  : DataTypes.STRING,
-    status       : DataTypes.INTEGER
+    role         : {type: DataTypes.STRING},
+    phone        : {type: DataTypes.STRING, allowNull: false},
+    password     : {type: DataTypes.STRING},
+    avatarUrl    : {type: DataTypes.STRING},
+    name         : {type: DataTypes.STRING},
+    gender       : {type: DataTypes.INTEGER},
+    birthday     : {type: DataTypes.DATE},
+    lastLoginTime: {type: DataTypes.DATE},
+    lastLoginIp  : {type: DataTypes.STRING},
+    status       : {type: DataTypes.INTEGER}
   }, {
-    associate: function (models) {
+    associate      : function (models) {
       User.hasMany(models.Task);
+    },
+    instanceMethods: {
+      toJSON: function () {
+        var privateAttributes = ['password'];
+        return _.omit(this.dataValues, privateAttributes);
+      }
     }
   });
   return User;

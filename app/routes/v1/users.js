@@ -4,7 +4,6 @@
  */
 
 const parse    = require('co-body'),
-      rac      = require('./roles').check,
       platform = require('../../platform');
 
 const get = exports.get = function* (next) {
@@ -26,7 +25,7 @@ const create = exports.create = function* (next) {
 };
 
 module.exports.register = function (router) {
-  router.get('/users', rac, list);
-  router.get('/users/:id', rac, get);
-  router.post('/users', rac, create);
+  router.get('/users', list);
+  router.get('/users/:id', get);
+  router.post('/users', create);
 };

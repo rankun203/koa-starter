@@ -4,7 +4,6 @@ const Koa          = require('koa'),
       app          = new Koa(),
       co           = require('co'),
       cors         = require('koa-cors'),
-      rbac         = require('koa-rbac'),
       mount        = require('koa-mount'),
       logger       = require('koa-logger'),
       onerror      = require('koa-onerror'),
@@ -32,7 +31,7 @@ app.use(httpNotFound);
 
 co(function *() {
   // Dev Only, 将代码中的 Schema 同步到数据库
-  const connection = yield db.sequelize.client.sync();
+  const connection = yield db.sequelize.client.sync(/*{force: true}*/);
   if (connection) {
     app.listen(config.server.port);
     console.log(`Connected to database and listening on port ${config.server.port}`);

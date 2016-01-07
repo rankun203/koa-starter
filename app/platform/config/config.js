@@ -21,6 +21,11 @@ const config = {
   },
   server: {
     port: process.env.PORT || 3000
+  },
+  jwt   : {
+    secret          : 'ledayin-jwt-pub',
+    algorithm       : 'RS256',
+    expiresInMinutes: 60 * 24 * 100
   }
 };
 
