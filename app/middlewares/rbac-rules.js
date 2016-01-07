@@ -1,5 +1,7 @@
 /**
  * Created on 1/7/16.
+ * see {@link https://www.npmjs.com/package/rbac-a#adding-attributes|RBAC-A Adding attributes}
+ * for more information about Adding attributes on roles
  * @author rankun203
  */
 'use strict';

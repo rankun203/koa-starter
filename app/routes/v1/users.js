@@ -9,7 +9,7 @@ const log      = require('log4js').getLogger('routes/users'),
       parse    = require('co-body'),
       platform = require('../../platform');
 
-const get = exports.get = function* (next) {
+const get = exports.get = function* () {
   const id   = this.params.id,
         user = yield platform.users.getUser(id);
 
@@ -17,13 +17,13 @@ const get = exports.get = function* (next) {
   this.body = user;
 };
 
-const list = exports.list = function* (next) {
+const list = exports.list = function* () {
   const where = this.params;
 
   this.body = yield platform.users.getUserList(where);
 };
 
-const create = exports.create = function* (next) {
+const create = exports.create = function* () {
   const body = yield parse(this);
   this.body  = yield platform.users.saveUser(body);
 };
