@@ -2,8 +2,11 @@
  * Created on 1/6/16.
  * @author rankun203
  */
+'use strict';
 
-const parse    = require('co-body'),
+const log      = require('log4js').getLogger('routes/users'),
+      rbac     = require('koa-rbac'),
+      parse    = require('co-body'),
       platform = require('../../platform');
 
 const get = exports.get = function* (next) {
@@ -16,7 +19,8 @@ const get = exports.get = function* (next) {
 
 const list = exports.list = function* (next) {
   const where = this.params;
-  this.body   = yield platform.users.getUserList(where);
+
+  this.body = yield platform.users.getUserList(where);
 };
 
 const create = exports.create = function* (next) {
@@ -25,7 +29,7 @@ const create = exports.create = function* (next) {
 };
 
 module.exports.register = function (router) {
-  router.get('/users', list);
-  router.get('/users/:id', get);
-  router.post('/users', create);
+  router.get('/users', rbac.allow(['read']), list);
+  router.get('/users/:id', rbac.allow(['read']), get);
+  router.post('/users', rbac.allow(['create']), create);
 };

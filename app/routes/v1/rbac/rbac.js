@@ -2,6 +2,7 @@
  * Created on 1/7/16.
  * @author rankun203
  */
+'use strict';
 
 const RBAC           = require('rbac-a');
 const log            = require('log4js').getLogger('rbac');

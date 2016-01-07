@@ -2,8 +2,9 @@
  * Created on 1/6/16.
  * @author rankun203
  */
+'use strict';
 
-const log      = require('log4js').getLogger('auth'),
+const log      = require('log4js').getLogger('routes/auth'),
       jwt      = require('koa-jwt'),
       parse    = require('co-body'),
       config   = require('../../platform/config'),
@@ -38,7 +39,7 @@ const login = exports.login = function* () {
 
   if (!foundUserList || foundUserList.length === 0) return this.throw(404, 'No user found');
 
-  const user = foundUserList[0].toJSON({scope: 'ANY'});
+  const user = foundUserList[0].toJSON();
 
   const jwtUser = {
     id   : user.id,

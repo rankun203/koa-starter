@@ -2,6 +2,7 @@
  * Created on 1/7/16.
  * @author rankun203
  */
+'use strict';
 
 function allowDeny(user, allowedPermissions, deniedPermissions, params) {
   function check(permissions) {

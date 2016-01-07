@@ -2,6 +2,7 @@
  * Created on 1/6/16.
  * @author rankun203
  */
+'use strict';
 
 var redis  = require('redis');
 var config = require('../config');

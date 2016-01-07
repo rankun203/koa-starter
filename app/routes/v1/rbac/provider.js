@@ -5,6 +5,7 @@
  *
  * @author rankun203
  */
+'use strict';
 
 const Provider = require('rbac-a').Provider;
 

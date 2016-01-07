@@ -2,8 +2,10 @@
  * Created on 1/6/16.
  * @author rankun203
  */
+'use strict';
 
 const db    = require('../db'),
+      mw    = require('../db/sequelize/tools/makeWhere'),
       User  = db.sequelize['User'],
       debug = require('debug')('user-persistence');
 
@@ -23,8 +25,13 @@ module.exports.getUser = function* (id) {
 module.exports.getUserList = function* (where) {
   debug(`getting user list where ${where}`);
 
+  const param = mw(
+    'phone', where.phone,
+    'password', where.password
+  );
+
   return yield User.findAll({
-    where: where
+    where: param
   });
 };
 

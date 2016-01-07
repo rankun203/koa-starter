@@ -2,6 +2,7 @@
  * Created on 1/6/16.
  * @author rankun203
  */
+'use strict';
 
 const fs        = require('fs');
 const path      = require('path');

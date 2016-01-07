@@ -2,33 +2,31 @@
  * Created on 1/7/16.
  * @author rankun203
  */
+'use strict';
 
 module.exports = {
-  "roles": {
-    "guest"   : {},
-    "reader"  : {
-      "permissions": ["read"],
-      "inherited"  : ["guest"]
+  roles: {
+    'guest'   : {
+      permissions: ['foo']
     },
-    "writer"  : {
-      "permissions": ["create"],
-      "inherited"  : ["reader"]
+    'reader'  : {
+      permissions: ['read'],
+      inherited  : ['guest']
     },
-    "editor"  : {
-      "permissions": ["update"],
-      "inherited"  : ["reader"],
-      "attributes" : ["dailySchedule"]
+    'writer'  : {
+      permissions: ['create'],
+      inherited  : ['reader']
     },
-    "director": {
-      "permissions": ["delete"],
-      "inherited"  : ["reader", "editor"]
+    'editor'  : {
+      permissions: ['update'],
+      inherited  : ['reader']
     },
-    "admin"   : {
-      "permissions": ["manage"],
-      "inherited"  : ["director"]
+    'director': {
+      permissions: ['delete'],
+      inherited  : ['editor']
+    },
+    'admin'   : {
+      permissions: ['manage']
     }
-  },
-  "users": {
-
   }
 };
