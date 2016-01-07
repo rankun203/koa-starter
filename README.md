@@ -1,5 +1,34 @@
-# ledayin-server
+# Koa starter project
 
-乐打印服务端
+Features:
 
-Koa v1
+- ES6
+  - Cheers~ Hugs~ Get away from callbacks.
+- Koa v1
+  - little different on koa context compares to Koa v2.
+- Sequelize
+  - Change it to everything you want, the services are well extracted.
+- JWT
+  - Sign tokens, authenticate users.
+- RBAC
+  - You need a security system, if the API isn't proxied by any.
+- Koa-mount
+  - Mount your APIs to a special mount point, like, `/v1`.
+- Redis
+  - Create user also create a user in Redis, 
+      get a single user by ID will be tremendously fast.
+- CORS
+  - Call the API from another web app need the API has CORS enabled for that origin.
+- Parameters Validate
+  - Password must be 6-24 in length, numbers, not empty, kind of things.
+
+### Notes
+
+#### JWT Token Based Authentication
+
+Header:
+
+Header Name   | Value
+------------- | ------------------------------
+Authorization | `Bearer eyJ0***.eyJp***.rWy3***`
+
