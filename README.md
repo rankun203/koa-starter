@@ -18,7 +18,7 @@ Features:
   - Create user also create a user in Redis, 
       get a single user by ID will be tremendously fast.
 - CORS
-  - Call the API from another web app need the API has CORS enabled for that origin.
+  - Call the API from another web app needs the API has CORS enabled for that origin.
 - Parameters Validate
   - Password must be 6-24 in length, numbers, not empty, kind of things.
 
