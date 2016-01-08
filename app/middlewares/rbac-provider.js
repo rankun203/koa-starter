@@ -20,6 +20,11 @@ module.exports = class CustomProvider extends Provider {
     const rules = this._rules || {};
     const cache = {};
 
+    /**
+     * @param roles ['admin']
+     * @param userRoles 用户默认的 role
+     * @param depth
+     */
     return (function collect(roles, userRoles, depth) {
       for (let i = 0, iLen = roles.length; i < iLen; ++i) {
         cache[roles[i]] = cache[roles[i]] || depth;
@@ -40,7 +45,7 @@ module.exports = class CustomProvider extends Provider {
       }
 
       return userRoles;
-    })(user.role && JSON.parse(user.role) || [], {}, 1);
+    })(user.role && [user.role] || [], {}, 1);
   }
 
   getPermissions(role) {
