@@ -34,4 +34,4 @@ Authorization | `Bearer eyJ0***.eyJp***.rWy3***`
 
 #### Role Based Access Control (RBAC)
 
-You should have a property named `role` in your `user` schema. The value could be `editor`, `writer`... Take a look at: [/app/middlewares/rbac-rules.js](https://github.com/rankun203/koa-starter/blob/master/app/middlewares/rbac-rules.js)
+You should have a property named `role` in your `user` schema. The value could be `editor`, `writer`, etc. Take a look at: [/app/middlewares/rbac-rules.js](https://github.com/rankun203/koa-starter/blob/master/app/middlewares/rbac-rules.js)
